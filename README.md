@@ -1,28 +1,14 @@
 css-transform-builder
 ----
 
-## setup build, test and release automation with circleci
+[![CircleCI](https://circleci.com/gh/fnobi/css-transform-builder/tree/master-build.svg?style=svg)](https://circleci.com/gh/fnobi/css-transform-builder/tree/master-build)
 
-* generate key
+```ts
+const transform = new CSSTransformBuilder().scale(1, 2);
+console.log(transform.toString());
+// => "scale(1,2)"
 
-```bash
-$ ssh-keygen -m pem -C 'circleci' -f ci.css-transform-builder.id_rsa
-```
-
-* paste public key in github `Settings / Deploy keys`
-* paste fingerprint in `.circleci/config.yml`
-* commit and push with `.circleci/config.yml`
-* duplicate branch with name `master-build` and push.
-* `Add Project` in circleci admin
-* paste private key in circleci `SSH Permissions`
-* add npm user token to circleci environment
-* add npm release workflow
-
-```yaml
-- npm_release:
-    filters:
-      tags:
-        only: /^v.*/
-      branches:
-        ignore: /.*/
+const transform2 = transform.translate(10, 10);
+console.log(transform2.toString());
+// => "scale(1,2) translate(10px,10px)"
 ```
