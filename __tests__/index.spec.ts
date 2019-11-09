@@ -22,4 +22,10 @@ describe('multi functions', () => {
             .translate(10, 10);
         expect(transform.toString()).toBe('scale(10,10) translate(10px,10px)');
     });
+    it('chain don\'t change base transform', () => {
+        const transform = new CSSTransformBuilder().scale(10, 10);
+        const transform2 = transform.translate(10, 10);
+        expect(transform.toString()).toBe('scale(10,10)');
+        expect(transform2.toString()).toBe('scale(10,10) translate(10px,10px)');
+    });
 });
