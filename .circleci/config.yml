@@ -106,9 +106,3 @@ workflows:
             branches:
               only:
                 - master
-      - npm_release:
-          filters:
-            tags:
-              only: /^v.*/
-            branches:
-              ignore: /.*/
