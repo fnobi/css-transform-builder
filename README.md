@@ -1,4 +1,4 @@
-hinagata-npm-ts
+css-transform-builder
 ----
 
 ## setup build, test and release automation with circleci
@@ -6,7 +6,7 @@ hinagata-npm-ts
 * generate key
 
 ```bash
-$ ssh-keygen -m pem -C 'circleci' -f ci.hinagata-npm-ts.id_rsa
+$ ssh-keygen -m pem -C 'circleci' -f ci.css-transform-builder.id_rsa
 ```
 
 * paste public key in github `Settings / Deploy keys`
