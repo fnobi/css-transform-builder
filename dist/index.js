@@ -27,44 +27,44 @@ class CSSTransformBuilder {
     scale3d(x, y, z) {
         return this.addOperationNumbers("scale3d", [x, y, z]);
     }
-    translate(x, y) {
-        return this.addOperationNumbers("translate", [x, y], "px");
+    translate(x, y, unit = "px") {
+        return this.addOperationNumbers("translate", [x, y], unit);
     }
-    translateX(num) {
-        return this.addOperationNumbers("translateX", [num], "px");
+    translateX(x, unit = "px") {
+        return this.addOperationNumbers("translateX", [x], unit);
     }
-    translateY(num) {
-        return this.addOperationNumbers("translateY", [num], "px");
+    translateY(y, unit = "px") {
+        return this.addOperationNumbers("translateY", [y], unit);
     }
-    translateZ(num) {
-        return this.addOperationNumbers("translateZ", [num], "px");
+    translateZ(z, unit = "px") {
+        return this.addOperationNumbers("translateZ", [z], unit);
     }
-    translate3d(x, y, z) {
-        return this.addOperationNumbers("translate3d", [x, y, z], "px");
+    translate3d(x, y, z, unit = "px") {
+        return this.addOperationNumbers("translate3d", [x, y, z], unit);
     }
-    rotate(num) {
-        return this.addOperationNumbers("rotate", [num], "deg");
+    rotate(num, unit = "deg") {
+        return this.addOperationNumbers("rotate", [num], unit);
     }
-    rotate3d(x, y, z, deg) {
-        return this.addOperation("rotate3d", [x, y, z, `${deg}deg`].join(","));
+    rotate3d(x, y, z, deg, unit = "deg") {
+        return this.addOperation("rotate3d", [x, y, z, `${deg}${unit}`].join(","));
     }
-    rotateX(num) {
-        return this.addOperationNumbers("rotateX", [num], "deg");
+    rotateX(num, unit = "deg") {
+        return this.addOperationNumbers("rotateX", [num], unit);
     }
-    rotateY(num) {
-        return this.addOperationNumbers("rotateY", [num], "deg");
+    rotateY(num, unit = "deg") {
+        return this.addOperationNumbers("rotateY", [num], unit);
     }
-    rotateZ(num) {
-        return this.addOperationNumbers("rotateZ", [num], "deg");
+    rotateZ(num, unit = "deg") {
+        return this.addOperationNumbers("rotateZ", [num], unit);
     }
-    skew(x, y) {
-        return this.addOperationNumbers("skew", [x, y], "deg");
+    skew(x, y, unit = "deg") {
+        return this.addOperationNumbers("skew", [x, y], unit);
     }
-    skewX(num) {
-        return this.addOperationNumbers("skewX", [num], "deg");
+    skewX(num, unit = "deg") {
+        return this.addOperationNumbers("skewX", [num], unit);
     }
-    skewY(num) {
-        return this.addOperationNumbers("skewY", [num], "deg");
+    skewY(num, unit = "deg") {
+        return this.addOperationNumbers("skewY", [num], unit);
     }
     perspective(num) {
         return this.addOperationNumbers("perspective", [num]);
