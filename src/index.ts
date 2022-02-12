@@ -36,56 +36,56 @@ export default class CSSTransformBuilder {
     return this.addOperationNumbers("scale3d", [x, y, z]);
   }
 
-  public translate(x: number, y: number) {
-    return this.addOperationNumbers("translate", [x, y], "px");
+  public translate(x: number, y:number, unit: string = "px") {
+    return this.addOperationNumbers("translate", [x, y], unit);
   }
 
-  public translateX(num: number) {
-    return this.addOperationNumbers("translateX", [num], "px");
+  public translateX(x: number, unit: string = "px") {
+    return this.addOperationNumbers("translateX", [x], unit);
   }
 
-  public translateY(num: number) {
-    return this.addOperationNumbers("translateY", [num], "px");
+  public translateY(y: number, unit: string = "px") {
+    return this.addOperationNumbers("translateY", [y], unit);
   }
 
-  public translateZ(num: number) {
-    return this.addOperationNumbers("translateZ", [num], "px");
+  public translateZ(z: number, unit: string = "px") {
+    return this.addOperationNumbers("translateZ", [z], unit);
   }
 
-  public translate3d(x: number, y: number, z: number) {
-    return this.addOperationNumbers("translate3d", [x, y, z], "px");
+  public translate3d(x: number, y: number, z: number, unit: string = "px") {
+    return this.addOperationNumbers("translate3d", [x, y, z], unit);
   }
 
-  public rotate(num: number) {
-    return this.addOperationNumbers("rotate", [num], "deg");
+  public rotate(num: number, unit: string = "deg") {
+    return this.addOperationNumbers("rotate", [num], unit);
   }
 
-  public rotate3d(x: number, y: number, z: number, deg: number) {
-    return this.addOperation("rotate3d", [x, y, z, `${deg}deg`].join(","));
+  public rotate3d(x: number, y: number, z: number, deg: number, unit: string = "deg") {
+    return this.addOperation("rotate3d", [x, y, z, `${deg}${unit}`].join(","));
   }
 
-  public rotateX(num: number) {
-    return this.addOperationNumbers("rotateX", [num], "deg");
+  public rotateX(num: number, unit: string = "deg") {
+    return this.addOperationNumbers("rotateX", [num], unit);
   }
 
-  public rotateY(num: number) {
-    return this.addOperationNumbers("rotateY", [num], "deg");
+  public rotateY(num: number, unit: string = "deg") {
+    return this.addOperationNumbers("rotateY", [num], unit);
   }
 
-  public rotateZ(num: number) {
-    return this.addOperationNumbers("rotateZ", [num], "deg");
+  public rotateZ(num: number, unit: string = "deg") {
+    return this.addOperationNumbers("rotateZ", [num], unit);
   }
 
-  public skew(x: number, y: number) {
-    return this.addOperationNumbers("skew", [x, y], "deg");
+  public skew(x: number, y: number, unit: string = "deg") {
+    return this.addOperationNumbers("skew", [x, y], unit);
   }
 
-  public skewX(num: number) {
-    return this.addOperationNumbers("skewX", [num], "deg");
+  public skewX(num: number, unit: string = "deg") {
+    return this.addOperationNumbers("skewX", [num], unit);
   }
 
-  public skewY(num: number) {
-    return this.addOperationNumbers("skewY", [num], "deg");
+  public skewY(num: number, unit: string = "deg") {
+    return this.addOperationNumbers("skewY", [num], unit);
   }
 
   public perspective(num: number) {
