@@ -1,4 +1,4 @@
-import CSSTransformBuilder from '../src/';
+import CSSTransformBuilder, { buildTransform } from "..";
 
 describe('build single transform functions', () => {
     it('scale', () => {
@@ -8,6 +8,10 @@ describe('build single transform functions', () => {
     it('translate', () => {
         const transform = new CSSTransformBuilder().translate(10, 10);
         expect(transform.toString()).toEqual('translate(10px,10px)');
+    });
+    it('translate with unit', () => {
+        const transform = new CSSTransformBuilder().translate(20, 30, '%');
+        expect(transform.toString()).toEqual('translate(20%,30%)');
     });
 });
 
@@ -27,5 +31,16 @@ describe('multi functions', () => {
         const transform2 = transform.translate(10, 10);
         expect(transform.toString()).toBe('scale(10,10)');
         expect(transform2.toString()).toBe('scale(10,10) translate(10px,10px)');
+    });
+    it('axis translate', () => {
+        const transform = new CSSTransformBuilder().translateX(1).translateY(2).translateZ(3);
+        expect(transform.toString()).toEqual('translateX(1px) translateY(2px) translateZ(3px)');
+    });
+});
+
+describe('functional', () => {
+    it('scale and translate', () => {
+        const res = buildTransform(t => t.scale(1, 2).translate(10, 10));
+        expect(res).toEqual('scale(1,2) translate(10px,10px)');
     });
 });
