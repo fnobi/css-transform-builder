@@ -1,6 +1,6 @@
 {
   "name": "css-transform-builder",
-  "version": "1.0.4",
+  "version": "1.1.0",
   "description": "development typescript tools.",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
