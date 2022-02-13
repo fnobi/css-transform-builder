@@ -24,3 +24,4 @@ export default class CSSTransformBuilder {
     perspective(num: number): CSSTransformBuilder;
     toString(): string;
 }
+export declare const buildTransform: (chain: (t: CSSTransformBuilder) => CSSTransformBuilder) => string;

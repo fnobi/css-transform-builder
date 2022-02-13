@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.buildTransform = void 0;
 class CSSTransformBuilder {
     constructor(queue = []) {
         this.queue = queue;
@@ -74,4 +75,5 @@ class CSSTransformBuilder {
     }
 }
 exports.default = CSSTransformBuilder;
+exports.buildTransform = (chain) => chain(new CSSTransformBuilder()).toString();
 //# sourceMappingURL=index.js.map
