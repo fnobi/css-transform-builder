@@ -96,3 +96,7 @@ export default class CSSTransformBuilder {
     return this.queue.length ? this.queue.join(" ") : "none";
   }
 }
+
+export const buildTransform = (
+  chain: (t: CSSTransformBuilder) => CSSTransformBuilder
+) => chain(new CSSTransformBuilder()).toString();
