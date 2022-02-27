@@ -1,7 +1,7 @@
 css-transform-builder
 ----
 
-[![CircleCI](https://circleci.com/gh/fnobi/css-transform-builder/tree/master-build.svg?style=svg)](https://circleci.com/gh/fnobi/css-transform-builder/tree/master-build)
+[![master-build](https://github.com/fnobi/css-transform-builder/actions/workflows/masterBuild.yml/badge.svg?branch=master)](https://github.com/fnobi/css-transform-builder/actions/workflows/masterBuild.yml)
 
 ## class base
 
