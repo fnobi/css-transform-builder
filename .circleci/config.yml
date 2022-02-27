@@ -18,71 +18,6 @@ defaults: &defaults
     BUILD_BRANCHI_POSTFIX: "build"
 
 jobs:
-  test:
-    <<: *defaults
-    steps:
-      - checkout
-      - restore_cache:
-          key: dependency-cache-{{ checksum "package-lock.json" }}
-      - run:
-          name: "npm install"
-          command: $INSTALL_COMMAND
-      - save_cache:
-          key: dependency-cache-{{ checksum "package-lock.json" }}
-          paths:
-            - node_modules
-      - run:
-          name: "test"
-          command: $TEST_COMMAND
-
-  build_and_commit:
-    <<: *defaults
-    steps:
-      - checkout
-      - add_ssh_keys:
-          fingerprints:
-            - "04:e5:91:ef:0e:17:01:f2:ef:85:6a:0e:d5:85:e4:a9"
-      - run:
-          name: "git config"
-          command: |
-            git config --global user.email "circleci@example.com"
-            git config --global user.name "circleci"
-            git config --global push.default simple
-      - run:
-          name: "setup branch"
-          command: |
-            git fetch origin
-            git checkout $CIRCLE_BRANCH-$BUILD_BRANCHI_POSTFIX
-            git merge $CIRCLE_BRANCH --no-ff -m "merge $CIRCLE_BRANCH"
-      - restore_cache:
-          key: dependency-cache-{{ checksum "package-lock.json" }}
-      - run:
-          name: "npm install"
-          command: $INSTALL_COMMAND
-      - save_cache:
-          key: dependency-cache-{{ checksum "package-lock.json" }}
-          paths:
-            - node_modules
-      - run:
-          name: "build"
-          command: $BUILD_COMMAND
-      - run:
-          name: "git add"
-          command: "git add $DOC_ROOT"
-      - run:
-          name: "git commit"
-          command: |
-            set +o pipefail
-            git commit -m 'build' | true
-      - run:
-          name: "git push"
-          command: "git push origin $CIRCLE_BRANCH-$BUILD_BRANCHI_POSTFIX"
-      - run:
-          name: "tagging"
-          command: |
-            v=`node -e "console.log(JSON.parse(require('fs').readFileSync('package.json','utf8')).version)"`
-            git tag v$v && git push --tags || echo "existing tag v$v"
-
   npm_release:
     <<: *defaults
     steps:
@@ -92,20 +27,12 @@ jobs:
           command: echo "//registry.npmjs.org/:_authToken=$npm_TOKEN" > ~/app/.npmrc
       - run:
           name: Publish package
-          command: npm publish      
+          command: npm publish
 
 workflows:
   version: 2
   build_deploy:
     jobs:
-      - test
-      - build_and_commit:
-          requires:
-            - test
-          filters:
-            branches:
-              only:
-                - master
       - npm_release:
           filters:
             tags:
