@@ -24,23 +24,5 @@
     "@types/node": "^14.0.23",
     "jest": "^26.1.0",
     "ts-jest": "^26.5.6"
-  },
-  "jest": {
-    "moduleFileExtensions": [
-      "ts",
-      "tsx",
-      "js"
-    ],
-    "transform": {
-      "^.+\\.(ts|tsx)$": "ts-jest"
-    },
-    "globals": {
-      "ts-jest": {
-        "tsConfigFile": "tsconfig.json"
-      }
-    },
-    "testMatch": [
-      "**/__tests__/*.spec.+(ts|tsx|js)"
-    ]
   }
 }
