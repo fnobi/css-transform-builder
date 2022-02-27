@@ -1,0 +1,44 @@
+name: develop-build
+
+on:
+  push:
+    branches:
+      - develop
+
+jobs:
+  deploy:
+    env:
+      ACTIONS_INSTALL_COMMAND: npm install
+      ACTIONS_TEST_COMMAND: npm run test
+      ACTIONS_BUILD_COMMAND: npm run build
+      ACTIONS_BUILD_DIST: dist
+      ACTIONS_LOCK_FILE: package-lock.json
+      ACTIONS_NODE_VERSION: 15.x
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+      - name: git config
+        run: |
+          git config --global user.email "github-actions@example.com"
+          git config --global user.name "Github Actions"
+          git config --global push.default simple
+
+      - uses: actions/setup-node@v2
+        with:
+          node-version: ${{ env.ACTIONS_NODE_VERSION }}
+          registry-url: 'https://registry.npmjs.org'
+
+      - uses: actions/cache@v1
+        with:
+          path: node_modules
+          key: ${{ runner.os }}-node-${{ hashFiles(format('**/{0}',env.ACTIONS_LOCK_FILE)) }}
+          restore-keys: ${{ runner.os }}-node-
+
+      - name: install dependencies
+        run: ${{ env.ACTIONS_INSTALL_COMMAND }}
+
+      - name: test
+        run: ${{ env.ACTIONS_TEST_COMMAND }}
