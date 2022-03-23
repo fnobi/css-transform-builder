@@ -5,6 +5,10 @@ describe('build single transform functions', () => {
         const transform = new CSSTransformBuilder().scale(1, 2);
         expect(transform.toString()).toEqual('scale(1,2)');
     });
+    it('scale with a argument', () => {
+        const transform = new CSSTransformBuilder().scale(2);
+        expect(transform.toString()).toEqual('scale(2)');
+    });
     it('translate', () => {
         const transform = new CSSTransformBuilder().translate(10, 10);
         expect(transform.toString()).toEqual('translate(10px,10px)');
