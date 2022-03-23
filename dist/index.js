@@ -13,8 +13,8 @@ class CSSTransformBuilder {
     }
     // matrix(数値, 数値, 数値, 数値, 数値, 数値)
     // matrix3d(数値, 数値, 数値, 数値, 数値, 数値, 数値, 数値, 数値, 数値, 数値, 数値, 数値, 数値, 数値, 数値)
-    scale(x, y) {
-        return this.addOperationNumbers("scale", [x, y]);
+    scale(...nums) {
+        return this.addOperationNumbers("scale", nums);
     }
     scaleX(x) {
         return this.addOperationNumbers("scaleX", [x]);

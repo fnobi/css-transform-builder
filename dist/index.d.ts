@@ -3,7 +3,7 @@ export default class CSSTransformBuilder {
     constructor(queue?: string[]);
     private addOperation;
     private addOperationNumbers;
-    scale(x: number, y: number): CSSTransformBuilder;
+    scale(...nums: number[]): CSSTransformBuilder;
     scaleX(x: number): CSSTransformBuilder;
     scaleY(y: number): CSSTransformBuilder;
     scaleZ(z: number): CSSTransformBuilder;
