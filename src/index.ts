@@ -16,8 +16,8 @@ export default class CSSTransformBuilder {
   // matrix(数値, 数値, 数値, 数値, 数値, 数値)
   // matrix3d(数値, 数値, 数値, 数値, 数値, 数値, 数値, 数値, 数値, 数値, 数値, 数値, 数値, 数値, 数値, 数値)
 
-  public scale(x: number, y: number) {
-    return this.addOperationNumbers("scale", [x, y]);
+  public scale(...nums: number[]) {
+    return this.addOperationNumbers("scale", nums);
   }
 
   public scaleX(x: number) {
