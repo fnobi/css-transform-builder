@@ -3,19 +3,19 @@ import CSSTransformBuilder, { buildTransform } from "..";
 describe("build single transform functions", () => {
   it("scale", () => {
     const transform = new CSSTransformBuilder().scale(1, 2);
-    expect(transform.toString()).toEqual("scale(1,2)");
+    expect(transform.toString()).toBe("scale(1,2)");
   });
   it("scale with a argument", () => {
     const transform = new CSSTransformBuilder().scale(2);
-    expect(transform.toString()).toEqual("scale(2)");
+    expect(transform.toString()).toBe("scale(2)");
   });
   it("translate", () => {
     const transform = new CSSTransformBuilder().translate(10, 10);
-    expect(transform.toString()).toEqual("translate(10px,10px)");
+    expect(transform.toString()).toBe("translate(10px,10px)");
   });
   it("translate with unit", () => {
     const transform = new CSSTransformBuilder().translate(20, 30, "%");
-    expect(transform.toString()).toEqual("translate(20%,30%)");
+    expect(transform.toString()).toBe("translate(20%,30%)");
   });
 });
 
@@ -39,7 +39,7 @@ describe("multi functions", () => {
       .translateX(1)
       .translateY(2)
       .translateZ(3);
-    expect(transform.toString()).toEqual(
+    expect(transform.toString()).toBe(
       "translateX(1px) translateY(2px) translateZ(3px)"
     );
   });
@@ -48,6 +48,6 @@ describe("multi functions", () => {
 describe("functional", () => {
   it("scale and translate", () => {
     const res = buildTransform((t) => t.scale(1, 2).translate(10, 10));
-    expect(res).toEqual("scale(1,2) translate(10px,10px)");
+    expect(res).toBe("scale(1,2) translate(10px,10px)");
   });
 });
