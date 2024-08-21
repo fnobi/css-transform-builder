@@ -7,7 +7,23 @@ type TupleOfNumbers<
       | TupleOfNumbers<Num, [...Acc, number]>
       | (Acc["length"] extends 0 ? never : Acc);
 
-type TranslateUnit = "px" | "em" | "rem" | "vw" | "vh" | "%";
+type TranslateUnit =
+  | "px"
+  | "em"
+  | "rem"
+  | "vw"
+  | "vh"
+  | "%"
+  | "svh"
+  | "svw"
+  | "lvh"
+  | "lvw"
+  | "vmax"
+  | "vmin"
+  | "lh"
+  | "rlh"
+  | "in"
+  | "pt";
 type RotateUnit = "deg" | "rad" | "grad" | "turn";
 type Unit = TranslateUnit | RotateUnit | "";
 
