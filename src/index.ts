@@ -1,3 +1,32 @@
+type TupleOfNumbers<
+  Num extends number,
+  Acc extends number[] = []
+> = Acc["length"] extends Num
+  ? Acc
+  :
+      | TupleOfNumbers<Num, [...Acc, number]>
+      | (Acc["length"] extends 0 ? never : Acc);
+
+type TranslateUnit =
+  | "px"
+  | "em"
+  | "rem"
+  | "vw"
+  | "vh"
+  | "%"
+  | "svh"
+  | "svw"
+  | "lvh"
+  | "lvw"
+  | "vmax"
+  | "vmin"
+  | "lh"
+  | "rlh"
+  | "in"
+  | "pt";
+type RotateUnit = "deg" | "rad" | "grad" | "turn";
+type Unit = TranslateUnit | RotateUnit | "";
+
 export default class CSSTransformBuilder {
   private readonly queue: string[];
 
@@ -9,14 +38,14 @@ export default class CSSTransformBuilder {
     return new CSSTransformBuilder([...this.queue, `${fn}(${val})`]);
   }
 
-  private addOperationNumbers(fn: string, nums: number[], unit: string = "") {
-    return this.addOperation(fn, nums.map(n => `${n}${unit}`).join(","));
+  private addOperationNumbers(fn: string, nums: number[], unit: Unit = "") {
+    return this.addOperation(fn, nums.map((n) => `${n}${unit}`).join(","));
   }
 
   // matrix(数値, 数値, 数値, 数値, 数値, 数値)
   // matrix3d(数値, 数値, 数値, 数値, 数値, 数値, 数値, 数値, 数値, 数値, 数値, 数値, 数値, 数値, 数値, 数値)
 
-  public scale(...nums: number[]) {
+  public scale(...nums: TupleOfNumbers<3>) {
     return this.addOperationNumbers("scale", nums);
   }
 
@@ -36,55 +65,66 @@ export default class CSSTransformBuilder {
     return this.addOperationNumbers("scale3d", [x, y, z]);
   }
 
-  public translate(x: number, y:number, unit: string = "px") {
+  public translate(x: number, y: number, unit: TranslateUnit = "px") {
     return this.addOperationNumbers("translate", [x, y], unit);
   }
 
-  public translateX(x: number, unit: string = "px") {
+  public translateX(x: number, unit: TranslateUnit = "px") {
     return this.addOperationNumbers("translateX", [x], unit);
   }
 
-  public translateY(y: number, unit: string = "px") {
+  public translateY(y: number, unit: TranslateUnit = "px") {
     return this.addOperationNumbers("translateY", [y], unit);
   }
 
-  public translateZ(z: number, unit: string = "px") {
+  public translateZ(z: number, unit: TranslateUnit = "px") {
     return this.addOperationNumbers("translateZ", [z], unit);
   }
 
-  public translate3d(x: number, y: number, z: number, unit: string = "px") {
+  public translate3d(
+    x: number,
+    y: number,
+    z: number,
+    unit: TranslateUnit = "px"
+  ) {
     return this.addOperationNumbers("translate3d", [x, y, z], unit);
   }
 
-  public rotate(num: number, unit: string = "deg") {
+  public rotate(num: number, unit: RotateUnit = "deg") {
     return this.addOperationNumbers("rotate", [num], unit);
   }
 
-  public rotate3d(x: number, y: number, z: number, deg: number, unit: string = "deg") {
+  public rotate3d(
+    x: number,
+    y: number,
+    z: number,
+    deg: number,
+    unit: RotateUnit = "deg"
+  ) {
     return this.addOperation("rotate3d", [x, y, z, `${deg}${unit}`].join(","));
   }
 
-  public rotateX(num: number, unit: string = "deg") {
+  public rotateX(num: number, unit: RotateUnit = "deg") {
     return this.addOperationNumbers("rotateX", [num], unit);
   }
 
-  public rotateY(num: number, unit: string = "deg") {
+  public rotateY(num: number, unit: RotateUnit = "deg") {
     return this.addOperationNumbers("rotateY", [num], unit);
   }
 
-  public rotateZ(num: number, unit: string = "deg") {
+  public rotateZ(num: number, unit: RotateUnit = "deg") {
     return this.addOperationNumbers("rotateZ", [num], unit);
   }
 
-  public skew(x: number, y: number, unit: string = "deg") {
+  public skew(x: number, y: number, unit: RotateUnit = "deg") {
     return this.addOperationNumbers("skew", [x, y], unit);
   }
 
-  public skewX(num: number, unit: string = "deg") {
+  public skewX(num: number, unit: RotateUnit = "deg") {
     return this.addOperationNumbers("skewX", [num], unit);
   }
 
-  public skewY(num: number, unit: string = "deg") {
+  public skewY(num: number, unit: RotateUnit = "deg") {
     return this.addOperationNumbers("skewY", [num], unit);
   }
 
