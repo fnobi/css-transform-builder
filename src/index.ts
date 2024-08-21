@@ -10,7 +10,7 @@ export default class CSSTransformBuilder {
   }
 
   private addOperationNumbers(fn: string, nums: number[], unit: string = "") {
-    return this.addOperation(fn, nums.map(n => `${n}${unit}`).join(","));
+    return this.addOperation(fn, nums.map((n) => `${n}${unit}`).join(","));
   }
 
   // matrix(数値, 数値, 数値, 数値, 数値, 数値)
@@ -36,7 +36,7 @@ export default class CSSTransformBuilder {
     return this.addOperationNumbers("scale3d", [x, y, z]);
   }
 
-  public translate(x: number, y:number, unit: string = "px") {
+  public translate(x: number, y: number, unit: string = "px") {
     return this.addOperationNumbers("translate", [x, y], unit);
   }
 
@@ -60,7 +60,13 @@ export default class CSSTransformBuilder {
     return this.addOperationNumbers("rotate", [num], unit);
   }
 
-  public rotate3d(x: number, y: number, z: number, deg: number, unit: string = "deg") {
+  public rotate3d(
+    x: number,
+    y: number,
+    z: number,
+    deg: number,
+    unit: string = "deg"
+  ) {
     return this.addOperation("rotate3d", [x, y, z, `${deg}${unit}`].join(","));
   }
 
