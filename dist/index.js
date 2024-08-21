@@ -9,7 +9,7 @@ class CSSTransformBuilder {
         return new CSSTransformBuilder([...this.queue, `${fn}(${val})`]);
     }
     addOperationNumbers(fn, nums, unit = "") {
-        return this.addOperation(fn, nums.map(n => `${n}${unit}`).join(","));
+        return this.addOperation(fn, nums.map((n) => `${n}${unit}`).join(","));
     }
     // matrix(数値, 数値, 数値, 数値, 数値, 数値)
     // matrix3d(数値, 数値, 数値, 数値, 数値, 数値, 数値, 数値, 数値, 数値, 数値, 数値, 数値, 数値, 数値, 数値)
@@ -75,5 +75,6 @@ class CSSTransformBuilder {
     }
 }
 exports.default = CSSTransformBuilder;
-exports.buildTransform = (chain) => chain(new CSSTransformBuilder()).toString();
+const buildTransform = (chain) => chain(new CSSTransformBuilder()).toString();
+exports.buildTransform = buildTransform;
 //# sourceMappingURL=index.js.map
