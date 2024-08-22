@@ -40,8 +40,9 @@ export default class CSSTransformBuilder {
   }
 
   private addOperationNumbers(fn: string, nums: number[], unit: Unit = "") {
-    return this.addOperation(fn, nums.map((n) => (
-      typeof unit === "string") ? `${n}${unit}`: unit(n)).join(",")
+    return this.addOperation(
+      fn,
+      nums.map((n) => (typeof unit === "string") ? `${n}${unit}`: unit(n)).join(",")
     );
   }
 
