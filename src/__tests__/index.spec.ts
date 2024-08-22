@@ -17,6 +17,11 @@ describe("build single transform functions", () => {
     const transform = new CSSTransformBuilder().translate(20, 30, "%");
     expect(transform.toString()).toBe("translate(20%,30%)");
   });
+  it("translate with custom unit", () => {
+    const customUnit = (n: number) =>  (n * 2) + "vw";
+    const transform = new CSSTransformBuilder().translate(20, 30, customUnit);
+    expect(transform.toString()).toBe("translate(40vw,60vw)");
+  });
 });
 
 describe("multi functions", () => {
@@ -42,6 +47,14 @@ describe("multi functions", () => {
     expect(transform.toString()).toBe(
       "translateX(1px) translateY(2px) translateZ(3px)"
     );
+  });
+  it("axis translate with unit", () => {
+    const customUnit = (n: number) =>  (n * 2) + "vw";
+    const transform = new CSSTransformBuilder()
+      .translateX(1)
+      .translateY(2, "%")
+      .translateZ(3, customUnit);
+    expect(transform.toString()).toBe("translateX(1px) translateY(2%) translateZ(6vw)");
   });
 });
 

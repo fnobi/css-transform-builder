@@ -23,7 +23,8 @@ type TranslateUnit =
   | "lh"
   | "rlh"
   | "in"
-  | "pt";
+  | "pt"
+  | ((n:number) => string);
 type RotateUnit = "deg" | "rad" | "grad" | "turn";
 type Unit = TranslateUnit | RotateUnit | "";
 
@@ -39,7 +40,9 @@ export default class CSSTransformBuilder {
   }
 
   private addOperationNumbers(fn: string, nums: number[], unit: Unit = "") {
-    return this.addOperation(fn, nums.map((n) => `${n}${unit}`).join(","));
+    return this.addOperation(fn, nums.map((n) => (
+      typeof unit === "string") ? `${n}${unit}`: unit(n)).join(",")
+    );
   }
 
   // matrix(数値, 数値, 数値, 数値, 数値, 数値)
