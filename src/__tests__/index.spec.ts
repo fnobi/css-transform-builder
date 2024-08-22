@@ -1,4 +1,4 @@
-import CSSTransformBuilder, { buildTransform } from "..";
+import CSSTransformBuilder, { buildTransform, TranslateUnit } from "..";
 
 describe("build single transform functions", () => {
   it("scale", () => {
@@ -18,7 +18,7 @@ describe("build single transform functions", () => {
     expect(transform.toString()).toBe("translate(20%,30%)");
   });
   it("translate with custom unit", () => {
-    const customUnit = (n: number) =>  (n * 2) + "vw";
+    const customUnit: TranslateUnit = (n) => `${(n * 2)}vw`;
     const transform = new CSSTransformBuilder().translate(20, 30, customUnit);
     expect(transform.toString()).toBe("translate(40vw,60vw)");
   });
@@ -49,7 +49,7 @@ describe("multi functions", () => {
     );
   });
   it("axis translate with unit", () => {
-    const customUnit = (n: number) =>  (n * 2) + "vw";
+    const customUnit: TranslateUnit = (n) => `${(n * 2)}vw`;
     const transform = new CSSTransformBuilder()
       .translateX(1)
       .translateY(2, "%")

@@ -7,7 +7,7 @@ type TupleOfNumbers<
       | TupleOfNumbers<Num, [...Acc, number]>
       | (Acc["length"] extends 0 ? never : Acc);
 
-type TranslateUnit =
+type PremitiveTranslateUnit =
   | "px"
   | "em"
   | "rem"
@@ -23,8 +23,10 @@ type TranslateUnit =
   | "lh"
   | "rlh"
   | "in"
-  | "pt"
-  | ((n:number) => string);
+  | "pt";
+export type TranslateUnit =
+  | PremitiveTranslateUnit
+  | ((n:number) => `${number}${PremitiveTranslateUnit}`);
 type RotateUnit = "deg" | "rad" | "grad" | "turn";
 type Unit = TranslateUnit | RotateUnit | "";
 
