@@ -25,8 +25,12 @@ console.log(transform4.toString());
 // => "translate(20vw,20vw)"
 
 const transform5 = new CSSTransformBuilder().translateY("10%");
-console.log(transform3.toString());
+console.log(transform5.toString());
 // => "translateY(10%)"
+
+const transform6 = new CSSTransformBuilder().translateX([["20px", "+", "10px"], "+", ["20px", "+", "10px"]]);
+console.log(transform6.toString());
+// => "translateX(calc((20px + 10px) + (20px + 10px)))"
 ```
 
 ## functional
@@ -49,4 +53,7 @@ console.log(buildTransform(t => t.translate(10, 10, customFunc)));
 
 console.log(buildTransform(t => t.translateY("10%")));
 // => "translateY(10%)"
+
+console.log(buildTransform(t => t.translateX([["20px", "+", "10px"], "+", ["20px", "+", "10px"]])));
+// => "translateX(calc((20px + 10px) + (20px + 10px)))"
 ```

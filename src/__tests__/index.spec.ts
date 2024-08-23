@@ -35,6 +35,32 @@ describe("build single transform functions", () => {
     );
     expect(transform.toString()).toBe("translate(40vw,30%)");
   });
+  it("calc props", () => {
+    const transform = new CSSTransformBuilder().translateX([
+      "20px",
+      "+",
+      "10px",
+    ]);
+    expect(transform.toString()).toBe("translateX(calc(20px + 10px))");
+  });
+  it("multi calc props", () => {
+    const transform = new CSSTransformBuilder().translateX([
+      ["20px", "+", "10px"],
+      "+",
+      "10px",
+    ]);
+    expect(transform.toString()).toBe("translateX(calc((20px + 10px) + 10px))");
+  });
+  it("multi calc props 2", () => {
+    const transform = new CSSTransformBuilder().translateX([
+      ["20px", "+", "10px"],
+      "+",
+      ["20px", "+", "10px"],
+    ]);
+    expect(transform.toString()).toBe(
+      "translateX(calc((20px + 10px) + (20px + 10px)))"
+    );
+  });
 });
 
 describe("multi functions", () => {

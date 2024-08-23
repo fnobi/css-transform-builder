@@ -33,9 +33,27 @@ export type CustomUnit<T extends PrimitiveUnit = PrimitiveUnit> = (
   num: number
 ) => NumWithUnit<T>;
 
+type CssTransformProps<T extends PrimitiveUnit> = number | NumWithUnit<T>;
+
+type Operator = "+" | "-" | "*" | "/" | "%";
+type CalcArray<T extends PrimitiveUnit = PrimitiveUnit> = [
+  CssTransformProps<T> | CalcArray<T>,
+  Operator,
+  CssTransformProps<T> | CalcArray<T>
+];
+
+const calcSolver = (calc: CalcArray) => {
+  const calcArraySolver = (calc: CalcArray): string =>
+    calc
+      .map((c) => (Array.isArray(c) ? `(${calcArraySolver(c)})` : c))
+      .join(" ");
+
+  return `calc(${calcArraySolver(calc)})`;
+};
+
 type CommonProps<T extends PrimitiveUnit = PrimitiveUnit> =
-  | number
-  | NumWithUnit<T>;
+  | CssTransformProps<T>
+  | CalcArray<T>;
 
 type TupleOfNumberHasUnit<
   Num extends number,
@@ -73,6 +91,8 @@ export default class CSSTransformBuilder {
         .map((n) =>
           typeof n === "string"
             ? n
+            : Array.isArray(n)
+            ? calcSolver(n)
             : typeof unit === "string"
             ? `${n}${unit}`
             : unit(n)
