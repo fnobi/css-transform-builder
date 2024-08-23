@@ -1,4 +1,4 @@
-import CSSTransformBuilder, { buildTransform } from "..";
+import CSSTransformBuilder, { CustomUnit, buildTransform } from "..";
 
 describe("build single transform functions", () => {
   it("scale", () => {
@@ -16,6 +16,11 @@ describe("build single transform functions", () => {
   it("translate with unit", () => {
     const transform = new CSSTransformBuilder().translate(20, 30, "%");
     expect(transform.toString()).toBe("translate(20%,30%)");
+  });
+  it("translate with custom unit", () => {
+    const customUnit: CustomUnit<"vw"> = (n) => `${n * 2}vw`;
+    const transform = new CSSTransformBuilder().translate(20, 30, customUnit);
+    expect(transform.toString()).toBe("translate(40vw,60vw)");
   });
 });
 

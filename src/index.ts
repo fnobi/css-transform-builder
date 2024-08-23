@@ -7,7 +7,7 @@ type TupleOfNumbers<
       | TupleOfNumbers<Num, [...Acc, number]>
       | (Acc["length"] extends 0 ? never : Acc);
 
-type TranslateUnit =
+type PrimitiveTranslateUnit =
   | "px"
   | "em"
   | "rem"
@@ -24,8 +24,20 @@ type TranslateUnit =
   | "rlh"
   | "in"
   | "pt";
-type RotateUnit = "deg" | "rad" | "grad" | "turn";
-type Unit = TranslateUnit | RotateUnit | "";
+type PrimitiveRotateUnit = "deg" | "rad" | "grad" | "turn";
+export type CustomUnit<
+  T extends PrimitiveTranslateUnit | PrimitiveRotateUnit =
+    | PrimitiveTranslateUnit
+    | PrimitiveRotateUnit
+> = (num: number) => `${number}${T}`;
+
+type TranslateUnit =
+  | PrimitiveTranslateUnit
+  | CustomUnit<PrimitiveTranslateUnit>;
+
+type RotateUnit = PrimitiveRotateUnit | CustomUnit<PrimitiveRotateUnit>;
+
+type Unit = TranslateUnit | RotateUnit | CustomUnit | "";
 
 export default class CSSTransformBuilder {
   private readonly queue: string[];
@@ -39,7 +51,10 @@ export default class CSSTransformBuilder {
   }
 
   private addOperationNumbers(fn: string, nums: number[], unit: Unit = "") {
-    return this.addOperation(fn, nums.map((n) => `${n}${unit}`).join(","));
+    return this.addOperation(
+      fn,
+      nums.map(typeof unit === "string" ? (n) => `${n}${unit}` : unit).join(",")
+    );
   }
 
   // matrix(数値, 数値, 数値, 数値, 数値, 数値)
