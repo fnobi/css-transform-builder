@@ -35,7 +35,7 @@ export type CustomUnit<T extends PrimitiveUnit = PrimitiveUnit> = (
 
 type CssTransformProps<T extends PrimitiveUnit> = number | NumWithUnit<T>;
 
-type Operator = "+" | "-" | "*" | "/" | "%";
+type Operator = "+" | "-" | "*" | "/";
 type CalcArray<T extends PrimitiveUnit = PrimitiveUnit> = [
   CssTransformProps<T> | CalcArray<T>,
   Operator,
