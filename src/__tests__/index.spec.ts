@@ -1,4 +1,4 @@
-import CSSTransformBuilder, { buildTransform } from "..";
+import CSSTransformBuilder, { CustomUnit, buildTransform } from "..";
 
 describe("build single transform functions", () => {
   it("scale", () => {
@@ -16,6 +16,50 @@ describe("build single transform functions", () => {
   it("translate with unit", () => {
     const transform = new CSSTransformBuilder().translate(20, 30, "%");
     expect(transform.toString()).toBe("translate(20%,30%)");
+  });
+  it("translate with custom unit", () => {
+    const customUnit: CustomUnit<"vw"> = (n) => `${n * 2}vw`;
+    const transform = new CSSTransformBuilder().translate(20, 30, customUnit);
+    expect(transform.toString()).toBe("translate(40vw,60vw)");
+  });
+  it("props has unit", () => {
+    const transform = new CSSTransformBuilder().translate(20, "30vw");
+    expect(transform.toString()).toBe("translate(20px,30vw)");
+  });
+  it("props has unit with custom unit", () => {
+    const customUnit: CustomUnit<"vw"> = (n) => `${n * 2}vw`;
+    const transform = new CSSTransformBuilder().translate(
+      20,
+      "30%",
+      customUnit
+    );
+    expect(transform.toString()).toBe("translate(40vw,30%)");
+  });
+  it("calc props", () => {
+    const transform = new CSSTransformBuilder().translateX([
+      "20px",
+      "+",
+      "10px",
+    ]);
+    expect(transform.toString()).toBe("translateX(calc(20px + 10px))");
+  });
+  it("multi calc props", () => {
+    const transform = new CSSTransformBuilder().translateX([
+      ["20px", "+", "10px"],
+      "+",
+      "10px",
+    ]);
+    expect(transform.toString()).toBe("translateX(calc((20px + 10px) + 10px))");
+  });
+  it("multi calc props 2", () => {
+    const transform = new CSSTransformBuilder().translateX([
+      ["20px", "+", "10px"],
+      "+",
+      ["20px", "+", "10px"],
+    ]);
+    expect(transform.toString()).toBe(
+      "translateX(calc((20px + 10px) + (20px + 10px)))"
+    );
   });
 });
 
