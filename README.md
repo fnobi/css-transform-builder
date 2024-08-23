@@ -19,10 +19,14 @@ const transform3 = new CSSTransformBuilder().rotate(20).translateY(10, "%");
 console.log(transform3.toString());
 // => "rotate(20deg) translateY(10%)"
 
-const customFunc: CustomUnit<"px"> = (n) => `${n * 2}px`;
+const customFunc: CustomUnit<"vw"> = (n) => `${n * 2}vw`;
 const transform4 = new CSSTransformBuilder().translate(10, 10, customFunc);
 console.log(transform4.toString());
-// => "translate(20px,20px)"
+// => "translate(20vw,20vw)"
+
+const transform5 = new CSSTransformBuilder().translateY("10%");
+console.log(transform3.toString());
+// => "translateY(10%)"
 ```
 
 ## functional
@@ -42,4 +46,7 @@ console.log(buildTransform(t => t.rotate(20).translateY(10, "%")));
 const customFunc: CustomUnit<"px"> = (n) => `${n * 2}px`;
 console.log(buildTransform(t => t.translate(10, 10, customFunc)));
 // => "translate(20px,20px)"
+
+console.log(buildTransform(t => t.translateY("10%")));
+// => "translateY(10%)"
 ```

@@ -22,6 +22,19 @@ describe("build single transform functions", () => {
     const transform = new CSSTransformBuilder().translate(20, 30, customUnit);
     expect(transform.toString()).toBe("translate(40vw,60vw)");
   });
+  it("props has unit", () => {
+    const transform = new CSSTransformBuilder().translate(20, "30vw");
+    expect(transform.toString()).toBe("translate(20px,30vw)");
+  });
+  it("props has unit with custom unit", () => {
+    const customUnit: CustomUnit<"vw"> = (n) => `${n * 2}vw`;
+    const transform = new CSSTransformBuilder().translate(
+      20,
+      "30%",
+      customUnit
+    );
+    expect(transform.toString()).toBe("translate(40vw,30%)");
+  });
 });
 
 describe("multi functions", () => {
